@@ -94,8 +94,9 @@ defmodule Coherence.CredentialStore.Server do
     # TODO:
     # Maybe support updating ths user's ID.
     state =
-      update_in(state, [:user_data, id], fn {_, inx} ->
-        {user_data, inx}
+      update_in(state, [:user_data, id], fn
+        nil -> {user_data, 1}
+        {_, inx} -> {user_data, inx}
       end)
 
     {:noreply, state}
