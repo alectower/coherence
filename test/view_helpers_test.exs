@@ -98,8 +98,8 @@ defmodule CoherenceTestWeb.ViewHelpers do
   test "coherence_links :layout signed in", %{conn: conn} do
     [item1, item2] = ViewHelpers.coherence_links(conn, :layout)
 
-    result1 = item1 |> safe_to_string
-    result2 = item2 |> safe_to_string
+    result1 = item1 |> safe_to_string |> Floki.parse_fragment!()
+    result2 = item2 |> safe_to_string |> Floki.parse_fragment!()
 
     assert Floki.find(result1, "li") |> Floki.text() == "test"
     assert Floki.find(result2, "li a") |> Floki.text() == @signout_link
@@ -111,8 +111,8 @@ defmodule CoherenceTestWeb.ViewHelpers do
     [item1, item2] =
       ViewHelpers.coherence_links(conn, :layout, register: "New Account", signin: "Login")
 
-    result1 = item1 |> safe_to_string
-    result2 = item2 |> safe_to_string
+    result1 = item1 |> safe_to_string |> Floki.parse_fragment!()
+    result2 = item2 |> safe_to_string |> Floki.parse_fragment!()
 
     assert Floki.find(result1, "li") |> Floki.text() == "New Account"
     assert Floki.find(result2, "li a") |> Floki.text() == "Login"

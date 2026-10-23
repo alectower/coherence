@@ -9,7 +9,6 @@ defmodule Coherence.Mixfile do
       version: @version,
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       docs: [extras: ["README.md"], main: "Coherence"],
@@ -27,16 +26,8 @@ defmodule Coherence.Mixfile do
   def application do
     [
       mod: {Coherence, []},
-      applications: [
-        :logger,
-        :comeonin,
-        :ecto_sql,
-        :elixir_uuid,
-        :phoenix_swoosh,
-        :tzdata,
-        :plug,
-        :phoenix,
-        :phoenix_html
+      extra_applications: [
+        :logger
       ]
     ]
   end
@@ -46,23 +37,25 @@ defmodule Coherence.Mixfile do
 
   defp deps do
     [
-      {:ecto_sql, "~> 3.0"},
-      {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.1"},
-      {:phoenix, "~> 1.4"},
-      {:phoenix_html, "~> 2.12"},
-      {:gettext, "~> 0.14"},
-      {:elixir_uuid, "~> 1.2"},
-      {:phoenix_swoosh, "~> 0.2"},
-      {:timex, "~> 3.3"},
-      {:floki, "~> 0.19", only: :test},
-      {:ex_doc, "~> 0.18.0", only: :dev},
-      {:earmark, "~> 1.2", only: :dev, override: true},
-      {:postgrex, "~> 0.14.0", only: :test},
-      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:comeonin, "~> 4.0"},
       {:credo, "~> 0.8", only: [:dev, :test]},
-      {:plug, "~> 1.7.1 or ~> 1.8"},
-      {:jason, "~> 1.0"}
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:earmark, "~> 1.2", only: :dev, override: true},
+      {:ecto_sql, "~> 3.0"},
+      {:elixir_uuid, "~> 1.2"},
+      {:ex_doc, "~> 0.18.0", only: :dev},
+      {:floki, "~> 0.36", only: :test},
+      {:gettext, "~> 0.14"},
+      {:jason, "~> 1.0"},
+      {:mochiweb, "~> 3.5", override: true},
+      {:phoenix, "~> 1.6.17"},
+      {:phoenix_html, "~> 2.12 or ~> 3.0"},
+      {:phoenix_swoosh, "~> 0.2 or ~> 1.0"},
+      {:plug, ">= 1.7.1"},
+      {:postgrex, ">= 0.14.0", only: :test},
+      {:ssl_verify_fun, "~> 1.1.7", override: true},
+      {:timex, "~> 3.3"},
     ]
   end
 

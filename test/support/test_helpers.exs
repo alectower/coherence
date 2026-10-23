@@ -81,7 +81,7 @@ defmodule TestCoherence.TestHelpers do
   end
 
   def floki_link(string) do
-    result = Floki.find(string, "a[href]")
+    result = string |> Floki.parse_fragment!() |> Floki.find("a[href]")
     [href] = Floki.attribute(result, "href")
     {href, Floki.text(result)}
   end
